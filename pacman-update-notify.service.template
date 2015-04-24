@@ -4,7 +4,7 @@ After=network-online.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/pacman-update-notify-test.sh
+ExecStart=/usr/bin/pacman-update-notify.sh
 User=USERNAME
 Group=USERNAME
 

@@ -29,7 +29,7 @@ INTERVAL=45
 
 all:
 
-invoke:
+test-service:
 	systemctl start pacman-update-notify.service
 
 pacman-update-notify.service: pacman-update-notify.service.template
