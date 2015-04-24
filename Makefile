@@ -54,6 +54,7 @@ install: install-service install-timer
 
 # Uninstall everything and clean up
 uninstall: clean
+	systemctl stop pacman-update-notify.timer # stop timer for current session
 	systemctl disable pacman-update-notify.timer # disable timer (clean up)
 	rm -f /etc/systemd/system/pacman-update-notify.service # removing service
 	rm -f /etc/systemd/system/pacman-update-notify.timer # removing timer
