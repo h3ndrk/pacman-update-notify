@@ -5,7 +5,7 @@ After=network-online.target
 [Service]
 Type=simple
 ExecStartPre=/usr/bin/pacman-update-sync.sh
-ExecStart=su USERNAME -c /usr/bin/pacman-update-notify.sh
+ExecStart=/usr/bin/su USERNAME -c /usr/bin/pacman-update-notify.sh
 User=root
 Group=root
 

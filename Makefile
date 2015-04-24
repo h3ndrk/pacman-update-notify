@@ -21,7 +21,7 @@ USERNAME=hendrik
 DELAY=5
 
 # timer interval
-INTERVAL=45
+INTERVAL=30
 
 ###########################  DO NOT EDIT FROM HERE  ###########################
 
@@ -50,7 +50,8 @@ install-timer: pacman-update-notify.timer
 
 # Install everything
 install: install-service install-timer
-	install -m 755 pacman-update-notify.sh /usr/bin/pacman-update-notify.sh
+	install -m 755 pacman-update-notify.sh /usr/bin/pacman-update-notify.sh # install script
+	install -m 755 pacman-update-sync.sh /usr/bin/pacman-update-sync.sh # install script
 
 # Uninstall everything and clean up
 uninstall: clean
@@ -59,6 +60,7 @@ uninstall: clean
 	rm -f /etc/systemd/system/pacman-update-notify.service # removing service
 	rm -f /etc/systemd/system/pacman-update-notify.timer # removing timer
 	rm -f /usr/bin/pacman-update-notify.sh # removing script
+	rm -f /usr/bin/pacman-update-sync.sh # removing script
 
 # Clean local generated service and timer
 clean:
