@@ -15,7 +15,7 @@
 
 # the script will be started with the following username (important for X and
 #   notify-send: this must be the username which should be notified)
-USERNAME=hendrik
+USERNAME=nipesystems
 
 # timer delay from boot
 DELAY=5
