@@ -21,4 +21,4 @@ To install use the program `make`:
 
 **Note that you must change the username in the `Makefile`.** Without the change notifications won't be displayed.
 
-The default startup delay at boot is `5` minutes and the default interval of the synchronization is set to `30` minutes. Feel free to modify these times in the `Makefile`.
+The default startup delay at boot is set to `5` minutes and the default interval of the synchronization is set to `30` minutes. Feel free to modify these settings in the `Makefile`.
