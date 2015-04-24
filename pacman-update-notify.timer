@@ -1,0 +1,11 @@
+[Unit]
+Description=Run pacman update script on fixed times
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=45min
+Unit=pacman-update-notify.service
+Persistent=true
+
+[Install]
+WantedBy=multi-user.target

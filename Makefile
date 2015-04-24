@@ -20,20 +20,20 @@ USERNAME=hendrik
 all:
 
 invoke:
-	systemctl start pacman-update-notify-test.service
+	systemctl start pacman-update-notify.service
 
-pacman-update-notify-test.service: pacman-update-notify-test.service.template
-	sed -e 's/USERNAME/$(USERNAME)/g' pacman-update-notify-test.service.template > pacman-update-notify-test.service
+pacman-update-notify.service: pacman-update-notify.service.template
+	sed -e 's/USERNAME/$(USERNAME)/g' pacman-update-notify.service.template > pacman-update-notify.service
 
 # Install and uninstall
 
-install: pacman-update-notify-test.service
-	install -m 644 pacman-update-notify-test.service /etc/systemd/system/pacman-update-notify-test.service
-	install -m 755 pacman-update-notify-test.sh /usr/bin/pacman-update-notify-test.sh
+install: pacman-update-notify.service
+	install -m 644 pacman-update-notify.service /etc/systemd/system/pacman-update-notify.service
+	install -m 755 pacman-update-notify.sh /usr/bin/pacman-update-notify.sh
 
 uninstall:
-	rm -f /etc/systemd/system/pacman-update-notify-test.service
-	rm -f /usr/bin/pacman-update-notify-test.sh
+	rm -f /etc/systemd/system/pacman-update-notify.service
+	rm -f /usr/bin/pacman-update-notify.sh
 
 clean:
-	rm -f pacman-update-notify-test.service
+	rm -f pacman-update-notify.service
