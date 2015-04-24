@@ -23,6 +23,9 @@ DELAY=5
 # timer interval
 INTERVAL=30
 
+# systemd config directory prefix (defaults to: /etc/systemd/system)
+SYSTEMD_PREFIX=/etc/systemd/system
+
 ###########################  DO NOT EDIT FROM HERE  ###########################
 
 # PHONY target
@@ -43,12 +46,12 @@ pacman-update-notify.timer: pacman-update-notify.timer.template
 # Install local service to system
 install-service: pacman-update-notify.service
 	# install service
-	install -m 644 pacman-update-notify.service /etc/systemd/system/pacman-update-notify.service
+	install -m 644 pacman-update-notify.service $(SYSTEMD_PREFIX)/pacman-update-notify.service
 
 # Install local timer to system
 install-timer: pacman-update-notify.timer
 	# install timer
-	install -m 644 pacman-update-notify.timer /etc/systemd/system/pacman-update-notify.timer
+	install -m 644 pacman-update-notify.timer $(SYSTEMD_PREFIX)/pacman-update-notify.timer
 	# start timer for current session
 	systemctl start pacman-update-notify.timer
 	# enable timer for every next session
@@ -74,9 +77,9 @@ uninstall: clean
 	# disable timer (clean up)
 	systemctl disable pacman-update-notify.timer
 	# removing service
-	rm -f /etc/systemd/system/pacman-update-notify.service
+	rm -f $(SYSTEMD_PREFIX)/pacman-update-notify.service
 	# removing timer
-	rm -f /etc/systemd/system/pacman-update-notify.timer
+	rm -f $(SYSTEMD_PREFIX)/pacman-update-notify.timer
 	# removing scripts
 	rm -f /usr/bin/pacman-update-notify.sh
 	rm -f /usr/bin/pacman-update-sync.sh
