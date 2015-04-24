@@ -5,8 +5,8 @@ After=network-online.target
 [Service]
 Type=simple
 ExecStart=/usr/bin/pacman-update-notify-test.sh
-User=hendrik
-Group=hendrik
+User=USERNAME
+Group=USERNAME
 
 [Install]
 WantedBy=multi-user.target
