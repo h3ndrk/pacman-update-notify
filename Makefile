@@ -25,33 +25,41 @@ INTERVAL=45
 
 ###########################  DO NOT EDIT FROM HERE  ###########################
 
+# PHONY target
 .PHONY: all invoke install-service install-timer install uninstall clean
 
 all:
 
-test-service:
-	systemctl start pacman-update-notify.service
-
+# Generate local service
 pacman-update-notify.service: pacman-update-notify.service.template
-	sed -e 's/USERNAME/$(USERNAME)/g' pacman-update-notify.service.template > pacman-update-notify.service
+	sed -e 's/USERNAME/$(USERNAME)/g' pacman-update-notify.service.template > pacman-update-notify.service # generate local service with username
 
+# Generate local timer
 pacman-update-notify.timer: pacman-update-notify.timer.template
-	sed -e 's/DELAY/$(DELAY)/g' -e 's/INTERVAL/$(INTERVAL)/g' pacman-update-notify.timer.template > pacman-update-notify.timer
+	sed -e 's/DELAY/$(DELAY)/g' -e 's/INTERVAL/$(INTERVAL)/g' pacman-update-notify.timer.template > pacman-update-notify.timer # generate local timer with delay and interval
 
+# Install local service to system
 install-service: pacman-update-notify.service
-	install -m 644 pacman-update-notify.service /etc/systemd/system/pacman-update-notify.service
+	install -m 644 pacman-update-notify.service /etc/systemd/system/pacman-update-notify.service # install service
 
+# Install local timer to system
 install-timer: pacman-update-notify.timer
-	install -m 644 pacman-update-notify.timer /etc/systemd/system/pacman-update-notify.timer
+	install -m 644 pacman-update-notify.timer /etc/systemd/system/pacman-update-notify.timer # install timer
+	systemctl start pacman-update-notify.timer # start timer for current session
+	systemctl enable pacman-update-notify.timer # enable timer for every next session
 
+# Install everything
 install: install-service install-timer
 	install -m 755 pacman-update-notify.sh /usr/bin/pacman-update-notify.sh
 
-uninstall:
-	rm -f /etc/systemd/system/pacman-update-notify.service
-	rm -f /etc/systemd/system/pacman-update-notify.timer
-	rm -f /usr/bin/pacman-update-notify.sh
+# Uninstall everything and clean up
+uninstall: clean
+	systemctl disable pacman-update-notify.timer # disable timer (clean up)
+	rm -f /etc/systemd/system/pacman-update-notify.service # removing service
+	rm -f /etc/systemd/system/pacman-update-notify.timer # removing timer
+	rm -f /usr/bin/pacman-update-notify.sh # removing script
 
+# Clean local generated service and timer
 clean:
-	rm -f pacman-update-notify.service
-	rm -f pacman-update-notify.timer
+	rm -f pacman-update-notify.service # removing local generated service
+	rm -f pacman-update-notify.timer # removing local generated timer
