@@ -15,7 +15,7 @@
 
 USERNAME=hendrik
 
-.PHONY: all invoke install uninstall
+.PHONY: all invoke install uninstall clean
 
 all:
 
