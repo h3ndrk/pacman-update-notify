@@ -1,0 +1,12 @@
+[Unit]
+Description=A pacman update notify script
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/home/username/Programme/pacman-update-notify/pacman-update-notify.sh
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
