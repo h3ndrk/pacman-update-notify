@@ -2,8 +2,8 @@
 Description=Run pacman update script on fixed times
 
 [Timer]
-OnBootSec=5min
-OnUnitActiveSec=45min
+OnBootSec=DELAYmin
+OnUnitActiveSec=INTERVALmin
 Unit=pacman-update-notify.service
 Persistent=true
 

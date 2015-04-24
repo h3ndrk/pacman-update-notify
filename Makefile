@@ -13,9 +13,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# the script will be started with the following username (important for X and
+#   notify-send: this must be the username which should be notified)
 USERNAME=hendrik
 
-.PHONY: all invoke install uninstall clean
+# timer delay from boot
+DELAY=5
+
+# timer interval
+INTERVAL=45
+
+###########################  DO NOT EDIT FROM HERE  ###########################
+
+.PHONY: all invoke install-service install-timer install uninstall clean
 
 all:
 
@@ -25,15 +35,23 @@ invoke:
 pacman-update-notify.service: pacman-update-notify.service.template
 	sed -e 's/USERNAME/$(USERNAME)/g' pacman-update-notify.service.template > pacman-update-notify.service
 
-# Install and uninstall
+pacman-update-notify.timer: pacman-update-notify.timer.template
+	sed -e 's/DELAY/$(DELAY)/g' -e 's/INTERVAL/$(INTERVAL)/g' pacman-update-notify.timer.template > pacman-update-notify.timer
 
-install: pacman-update-notify.service
+install-service: pacman-update-notify.service
 	install -m 644 pacman-update-notify.service /etc/systemd/system/pacman-update-notify.service
+
+install-timer: pacman-update-notify.timer
+	install -m 644 pacman-update-notify.timer /etc/systemd/system/pacman-update-notify.timer
+
+install: install-service install-timer
 	install -m 755 pacman-update-notify.sh /usr/bin/pacman-update-notify.sh
 
 uninstall:
 	rm -f /etc/systemd/system/pacman-update-notify.service
+	rm -f /etc/systemd/system/pacman-update-notify.timer
 	rm -f /usr/bin/pacman-update-notify.sh
 
 clean:
 	rm -f pacman-update-notify.service
+	rm -f pacman-update-notify.timer
