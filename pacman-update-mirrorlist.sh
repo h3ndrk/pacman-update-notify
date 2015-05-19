@@ -17,8 +17,8 @@
 
 # Feel free to modify the download link for your purposes.
 
-# your country in two-capital-letter-code, e.g. "EN" or "DE"
-COUNTRY="EN"
+# your country in two-capital-letter-code, e.g. "US" or "DE"
+COUNTRY="all"
 
 ###########################  DO NOT EDIT FROM HERE  ###########################
 

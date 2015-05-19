@@ -27,7 +27,7 @@ The default startup delay at boot is set to `5` minutes and the default interval
 
 In the `pacman-update-mirrorlist.sh`-script it is possible to change the country of the mirrors. Feel free to modify the download link in the script file. Defaultly the script will download the mirrorlist from:
 
-    https://www.archlinux.org/mirrorlist/?country=EN&protocol=http&protocol=https&ip_version=4
+    https://www.archlinux.org/mirrorlist/?country=all&protocol=http&protocol=https&ip_version=4
 
 ## License
 
