@@ -1,0 +1,12 @@
+[Unit]
+Description=pacman update mirrorlist
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/pacman-update-mirrorlist.sh
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target

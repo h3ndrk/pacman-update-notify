@@ -15,7 +15,7 @@
 
 # the script will be started with the following username (important for X and
 #   notify-send: this must be the username which should be notified)
-USERNAME=nipesystems
+USERNAME=hendrik
 
 # timer delay from boot
 DELAY=5
@@ -52,10 +52,16 @@ install-service: pacman-update-notify.service
 install-timer: pacman-update-notify.timer
 	# install timer
 	install -m 644 pacman-update-notify.timer $(SYSTEMD_PREFIX)/pacman-update-notify.timer
-	# start timer for current session
-	systemctl start pacman-update-notify.timer
-	# enable timer for every next session
-	systemctl enable pacman-update-notify.timer
+
+# Install local service to system
+install-mirrorlist-service: pacman-update-mirrorlist.service
+	# install service
+	install -m 644 pacman-update-mirrorlist.service $(SYSTEMD_PREFIX)/pacman-update-mirrorlist.service
+
+# Install local timer to system
+install-mirrorlist-timer: pacman-update-mirrorlist.timer
+	# install timer
+	install -m 644 pacman-update-mirrorlist.timer $(SYSTEMD_PREFIX)/pacman-update-mirrorlist.timer
 
 # Clean local generated service and timer
 clean:
@@ -65,21 +71,37 @@ clean:
 	rm -f pacman-update-notify.timer
 
 # Install everything
-install: install-service install-timer
+install: install-service install-timer install-mirrorlist-service install-mirrorlist-timer
 	# install scripts
 	install -m 755 pacman-update-notify.sh /usr/bin/pacman-update-notify.sh
 	install -m 755 pacman-update-sync.sh /usr/bin/pacman-update-sync.sh
+	install -m 755 pacman-update-mirrorlist.sh /usr/bin/pacman-update-mirrorlist.sh
+	# Reload systemd daemon
+	systemctl daemon-reload
+	# start timers for current session
+	systemctl start pacman-update-notify.timer
+	systemctl start pacman-update-mirrorlist.timer
+	# enable timers for every next session
+	systemctl enable pacman-update-notify.timer
+	systemctl enable pacman-update-mirrorlist.timer
 
 # Uninstall everything and clean up
 uninstall: clean
 	# stop timer for current session
 	systemctl stop pacman-update-notify.timer
+	systemctl stop pacman-update-mirrorlist.timer
 	# disable timer (clean up)
 	systemctl disable pacman-update-notify.timer
+	systemctl disable pacman-update-mirrorlist.timer
 	# removing service
 	rm -f $(SYSTEMD_PREFIX)/pacman-update-notify.service
+	rm -f $(SYSTEMD_PREFIX)/pacman-update-mirrorlist.service
 	# removing timer
 	rm -f $(SYSTEMD_PREFIX)/pacman-update-notify.timer
+	rm -f $(SYSTEMD_PREFIX)/pacman-update-mirrorlist.timer
 	# removing scripts
 	rm -f /usr/bin/pacman-update-notify.sh
 	rm -f /usr/bin/pacman-update-sync.sh
+	rm -f /usr/bin/pacman-update-mirrorlist.sh
+	# Reload systemd daemon
+	systemctl daemon-reload

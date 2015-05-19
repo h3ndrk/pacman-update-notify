@@ -1,0 +1,10 @@
+[Unit]
+Description=Run pacman update mirrorlist on fixed times
+
+[Timer]
+OnCalendar=daily
+Unit=pacman-update-mirrorlist.service
+Persistent=true
+
+[Install]
+WantedBy=multi-user.target
