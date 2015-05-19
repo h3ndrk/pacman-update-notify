@@ -6,15 +6,15 @@ This code uses [systemd](https://wiki.freedesktop.org/www/Software/systemd/) and
 
 ## Installation
 
-To install use the program `make`:
+To install use the program `make` (**root privileges required**):
 
-    #  make install
+    # make install
     
         Generates all scripts, services and timers and installs them to the
         correct locations. As a result the timer is started and will be
         started at every following boot.
     
-    #  make uninstall
+    # make uninstall
     
         Removes and disables all scripts, services and timers. Also cleans up
         the source code directory.
