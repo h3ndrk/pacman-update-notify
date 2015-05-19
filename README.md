@@ -4,6 +4,8 @@ Get notified when the package manager [pacman](https://www.archlinux.org/pacman/
 
 This code uses [systemd](https://wiki.freedesktop.org/www/Software/systemd/) and `notify-send` to achieve desktop notifications for available updates for the system. It is an interactive interface between the package manager [pacman](https://www.archlinux.org/pacman/). It checks periodically for updates.
 
+In addition to the update process another script will keep the pacman mirrorlist up to date. As a result the used mirrors are validated every day and will be sorted by access delay and speed.
+
 ## Installation
 
 To install use the program `make` (**root privileges required**):
@@ -22,6 +24,10 @@ To install use the program `make` (**root privileges required**):
 **Note that you must change the username in the `Makefile`.** Without the change notifications won't be displayed.
 
 The default startup delay at boot is set to `5` minutes and the default interval of the synchronization is set to `30` minutes. Feel free to modify these settings in the `Makefile`.
+
+In the `pacman-update-mirrorlist.sh`-script it is possible to change the country of the mirrors. Feel free to modify the download link in the script file. Defaultly the script will download the mirrorlist from:
+
+    https://www.archlinux.org/mirrorlist/?country=EN&protocol=http&protocol=https&ip_version=4
 
 ## License
 
