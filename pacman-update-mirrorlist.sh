@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/sh
 
 # Copyright (C) 2015 NIPE-SYSTEMS
 # 
